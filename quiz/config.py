@@ -5,7 +5,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:user13@localhost/mindia'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:admin@localhost/mindia'
     SQLALCHEMY_TRACK_MODIFICATIONS =False
     SECRET_KEY = 'mindiaaa' 
 #     # photos 
