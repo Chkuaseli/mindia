@@ -16,3 +16,5 @@ class Tests(FlaskForm):
     name = StringField('First Name: ',validators=[DataRequired(),Length(min=3, max=50, message='Name length must be between %(min)d and %(max)d characters') ])
     desc = TextAreaField('Description')
     submit=SubmitField('add test')
+
+    
