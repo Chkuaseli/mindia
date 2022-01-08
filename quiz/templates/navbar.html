@@ -1,0 +1,61 @@
+<header>
+    <nav class="navbar navbar-expand-md stars-bg-dark" style='font-family: "BPG Arial Caps", sans-serif; background-color: #343148;'>
+      <div class="container-fluid">
+        <a class="navbar-brand rounded " href="/">
+          <img class="logo-hover logo" src="/static/images/site/logo.jpg" alt="logo" style="width: 50px;">
+        </a>
+        <button class="navbar-toggler btn btn-warning" onclick="navhide()" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+          aria-label="Toggle navigation"> 
+          <span class="navbar-toggler-icon">
+            <i class="fas fa-bars fs-1 text-light"></i>
+          </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mb-2 ml-auto ms-auto">
+            <li class="nav-item">
+  
+            </li>
+          
+            <li class="nav-item ">
+              <a class="nav-link text-light active nav-links-hover" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link text-light active nav-links-hover" aria-current="page" href="{{ url_for('card_dashboard') }}">Card</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light nav-links-hover" href="{{ url_for('department') }}">Department</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light text-nowrap nav-links-hover" href="{{ url_for('humanfeature') }}">Human Feature</a>
+  
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link text-light stars-profile-button rounded nav-links-hover" href="/register_choice">პროფილი</a>
+            </li> -->
+  
+             
+          </ul>
+  
+        </div>
+  
+      </div>
+  
+    </nav>
+  
+  </header>
+  
+  
+  <script>
+  
+    function navhide() {
+      var navhid = document.getElementById("navbarsExampleDefault");
+    
+      if (navhid.classList.contains("show")) {
+          navhid.classList.remove("show");
+      } 
+      else{
+        navhid.classList.add("show");
+      }
+    }
+    </script>

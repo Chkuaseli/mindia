@@ -1,0 +1,218 @@
+/* start navbar */
+body.modal-open {
+    overflow: visible;
+  }
+  
+  .bs-example {
+    margin: 0px;
+  
+  }
+  .bg-dark {
+  background-color: #212529!important;
+  }
+  .navbar-brand {
+    font-size: 20px;
+    font-family: sans-serif;
+  
+  }
+  .nav-link{
+    font-weight:bolder;
+    color: #ffffff;
+  }
+  .kings-btn-blue {
+  color: white !important;
+  background: #62e300;
+  font-weight: 600;
+  overflow: hidden;
+  width: 180px;
+  height: 50px;
+  border-radius: 25px;
+  border: 0;
+  outline: none;
+  transition: all 500ms ease;
+  font-size: 13px;
+  line-height: 50px;
+  text-align: -webkit-center;
+  display: inline-table;
+  width: 160px; 
+  margin-left: 10px; 
+          overflow: hidden;
+          width: 115px;
+          height: 40px;
+          border-radius: 25px;
+          border: 0;
+          outline: none;
+          transition: all 500ms ease;
+          font-size: 15px;
+          line-height: 25px;
+          margin-right: 0;
+          margin-left: 30px;
+          
+  }
+  .waves-effect {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  vertical-align: middle;
+  z-index: 1;
+  -webkit-transition: .3s ease-out;
+  transition: .3s ease-out;
+  }
+  
+  @media (min-width: 768px){
+  .navbar-expand-md {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: wrap;
+      flex-flow: wrap;
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      justify-content: flex-start;
+  }
+  }
+  /* end navbar */
+  
+  
+  
+  
+  
+  
+  
+  .btn_my{
+      margin: 10px;
+      padding: 15px;
+  }
+  .btn_back{
+      float: left;
+      font-weight: 700;
+      margin-top: -30px;
+      padding-left: 30px;
+      padding-right: 30px;
+  
+  }
+  
+  .logo-hover:hover {
+      transform: scale(1.3);
+      transition: all 0.3s ease-out;
+    }
+  
+  .logo{
+      border-radius: 25px;
+    }
+  
+  .label_reg{
+    display: inline-block;
+    margin-bottom: .5rem; 
+    font-weight: 700;
+  }
+  
+  
+  /* serch starting */
+  .searchBox {
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    transform:  translate(-50%,50%);
+    background: #2f3640;
+    /* height: 40px; */
+    border-radius: 40px;
+    padding: 10px;
+    /* margin-left: 500px; */
+    /* margin-top: 15px; */
+    margin-left: 30vh;
+    margin-top: 2vh;
+  
+  }
+  
+  .searchBox:hover > .searchInput {
+    width: 240px;
+    padding: 0 6px;
+  }
+  
+  .searchBox:hover > .searchButton {
+  background: white;
+  color : #2f3640;
+  }
+  
+  .searchButton {
+    color: white;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #0567f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+  }
+  
+  .searchInput {
+    border:none;
+    background: none;
+    outline:none;
+    float:left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+  
+  }
+  
+  @media screen and (max-width: 620px) {
+  .searchBox:hover > .searchInput {
+    width: 150px;
+    padding: 0 6px;
+  }
+  }
+  /* end search */
+  
+  
+  /* start main dashboard pie div*/
+  
+  .content {
+    float: left;
+    width: 750px;
+  }
+    .content::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  
+  .box {
+    padding: 5px 15px;
+    background: #fff;
+    box-shadow: 0 1px 2px #c9c9c9;
+    -moz-box-shadow: 0 1px 2px #c9c9c9;
+    -webkit-box-shadow: 0 1px 2px #c9c9c9;
+    border-radius: 2px;
+    margin-bottom: 15px;
+  }
+  .box:hover {
+    box-shadow: 0 2px 2px #bababa;
+    -moz-box-shadow: 0 2px 2px #bababa;
+    -webkit-box-shadow: 0 2px 2px #bababa;
+  }
+  .box p {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 0 10px;
+  }
+  .box h5 {
+    font-size: 1.4rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  
+  /* and main dashboard pie div*/
