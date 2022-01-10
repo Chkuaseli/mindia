@@ -2,19 +2,22 @@ from wtforms import Form,StringField, TextAreaField, SubmitField,validators,Vali
 from flask_wtf.file import FileField,FileAllowed,FileField,FileRequired
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired,Length,InputRequired
+from .models import Tests
 
-class Pictures(FlaskForm):
+class PictureForm(FlaskForm):
     name = StringField('First Name: ',validators=[DataRequired(),Length(min=3, max=50, message='Name length must be between %(min)d and %(max)d characters') ])
     pic = FileField('Card image: ', validators=[FileAllowed(['jpg','png','jpeg','gif'],'Image only please'),FileRequired()])
 
-class Subjects(FlaskForm):
+class SubjectForm(FlaskForm):
     name = StringField('First Name: ',validators=[DataRequired(),Length(min=3, max=50, message='Name length must be between %(min)d and %(max)d characters') ])
-    submit=SubmitField('add subjects')
+    submit = SubmitField('add subjects')
 
-class Tests(FlaskForm):
+class TestForm(FlaskForm):
     code = StringField('Code: ',validators=[DataRequired(),Length(min=3, max=10, message='Code length must be between %(min)d and %(max)d characters') ])
-    name = StringField('First Name: ',validators=[DataRequired(),Length(min=3, max=50, message='Name length must be between %(min)d and %(max)d characters') ])
+    name = StringField('Name: ',validators=[DataRequired(),Length(min=3, max=50, message='Name length must be between %(min)d and %(max)d characters') ])
     desc = TextAreaField('Description')
-    submit=SubmitField('add test')
+    submit = SubmitField('add test')
 
-    
+    def validate_feature(self,code):
+        if Tests.query.filter_by(code=code.data).first():
+            raise ValidationError('This code alredy exist!')

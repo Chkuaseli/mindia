@@ -3,7 +3,7 @@ from flask import redirect, render_template, url_for, flash, request,current_app
 import secrets,os
 import pdfkit
 from datetime import datetime
-from .forms import Pictures,Subjects,Tests
+from .forms import PictureForm,SubjectForm,TestForm
 from .models import Tests,Pictures,Subjects
 
 @app.route('/',methods=['GET'])
@@ -15,19 +15,26 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
   
 @app.route('/add_test',methods=['POST','GET'])
 def add_test():
-    form = Tests()
+    form = TestForm()
     if request.method =='POST':
         code = form.code.data
         name = form.name.data
         desc = form.desc.data
-        if code != None and name != None: 
+        file = request.files.getlist("file")
+        if code != None and name != None:
             add_test = Tests(code = code,name=name,desc=desc)
+            add_test.append('jahdjahdja')
+            # add_image = Pictures()
+            print(file)
+            for up in file:
+                print (up.filename)
             db.session.add(add_test)
             flash(f'the {code} with name {name} has bin adedd to your database','success')
             db.session.commit()
-        return form
-
-    return render_template('cards/add_tests.html',form = form , title = 'add test')
+        print(type(form))
+        return render_template('card/add_tests.html',form = form )
+    print(type(form))
+    return render_template('card/add_tests.html',form = form )
 
 @app.route('/update_test',methods=['POST','GET'])
 def update_test():
