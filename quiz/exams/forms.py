@@ -18,6 +18,6 @@ class TestForm(FlaskForm):
     desc = TextAreaField('Description')
     submit = SubmitField('add test')
 
-    def validate_feature(self,code):
+    def validate_code(self,code):
         if Tests.query.filter_by(code=code.data).first():
             raise ValidationError('This code alredy exist!')

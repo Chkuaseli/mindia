@@ -6,11 +6,13 @@
         <!-- <a href="{{url_for('add_test')}}">    
             <button class="btn btn-outline-success btn_my btn_back">Go back<i class="fas fa-plus" ></i> </button>
          </a> -->
+         
         <div class="col-md-3"></div>
         <div class="col-md-6 ">
             {% include "_messages.html" %}
         <h3 class="bg-info text-center">Add Tests</h3>
         <form action="" method="post" enctype="multipart/form-data">
+            {{form.csrf_token}}
             {{ render_field(form.name,class='form-control') }}
             {{ render_field(form.code,class='form-control') }}
             {{ render_field(form.desc,class='form-control') }}

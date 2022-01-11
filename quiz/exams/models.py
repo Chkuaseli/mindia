@@ -15,7 +15,9 @@ class Tests(db.Model):
   name = db.Column(db.String(80),unique = False, nullable=False)
   desc = db.Column(db.String(180) ,unique = False,nullable =False)
   date_crated = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
+  #relation onetomany
   pic_id = db.relationship('Pictures', backref='tests',cascade="all,delete")
+  
 
 class Subjects(db.Model):
   id = db.Column(db.Integer(), primary_key=True,nullable = False)

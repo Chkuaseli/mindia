@@ -10,4 +10,4 @@ class Config:
     SECRET_KEY = 'mindiaaa' 
 #     # photos 
     UPLOADED_PHOTOS_DEST = os.path.join(basedir,'static/images')
-#     DROPZONE_ALLOWED_FILE_TYPE = 'image/*'
+    DROPZONE_ALLOWED_FILE_TYPE = 'image/*'
