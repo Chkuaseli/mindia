@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+
+<div class="container mt-5">
+    <table class="table table-sm table-condensed table-striped table-hover">
+        <thead>
+            <th>Sr</th>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Images</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+            {% if tests %}
+            <a href="{{url_for('add_test')}}">    
+              <button style="float: right;font-weight: 700;" class="btn btn-outline-success btn_my"> add department<i class="fas fa-plus" ></i> </button>
+           </a>
+            {% for dep in tests %}
+
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{dep.name}}</td>
+                <td>{{dep.code}}</td>
+                <td>{{dep.desc}}</td>
+              
+            <td> {% for pics in dep.pic_id %} 
+                <img class="pic-1" style="width: 40px;height: auto;" src="{{url_for('static', filename='images/' + pics.pic)}}">
+                {% endfor %}
+            </td>
+                <!-- <td><a href="{{url_for('update_test', id=dep.id)}}" class="btn btn-sm btn-outline-info">Edit</a></td>
+                <td>
+               
+                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-{{dep.id}}">
+                   Delete
+                  </button>
+
+                </td> -->
+            </tr>
+            {% endfor %}
+            {% endif %}
+        <tbody>
+    </table>
+</div>
+
+
+{% endblock content %}

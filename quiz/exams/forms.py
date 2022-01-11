@@ -1,4 +1,4 @@
-from wtforms import Form,StringField, TextAreaField, SubmitField,validators,ValidationError,RadioField,IntegerField,SelectField
+from wtforms import Form,StringField, TextAreaField, SubmitField,validators,ValidationError,RadioField,IntegerField,SelectField,PasswordField
 from flask_wtf.file import FileField,FileAllowed,FileField,FileRequired
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired,Length,InputRequired
@@ -21,3 +21,11 @@ class TestForm(FlaskForm):
     def validate_code(self,code):
         if Tests.query.filter_by(code=code.data).first():
             raise ValidationError('This code alredy exist!')
+
+class LoginForm(FlaskForm):
+    login = StringField('Log In: ',validators=[DataRequired(),Length(min=3, max=10, message='Name length must be between %(min)d and %(max)d characters') ])
+
+
+class AdminLoginForm(FlaskForm):
+    name = StringField('Name: ',validators=[DataRequired(),Length(min=3, max=10, message='Name length must be between %(min)d and %(max)d characters') ])
+    pwd = PasswordField('Password: ',validators=[DataRequired(),Length(min=3, max=50, message='Pass length must be between %(min)d and %(max)d characters') ])
