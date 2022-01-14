@@ -8,8 +8,47 @@ from .forms import PictureForm,SubjectForm,TestForm,LoginForm,AdminLoginForm
 from .models import Tests,Pictures,Subjects,MainLogin
 from PIL import Image
 from flask_login import login_user,logout_user,login_required,current_user
+import functools
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+# დეკორატორი წვდომებისათვის ორი როლისთვის ადმინი და სტუდენტ["admin","student"]
+def decorator_factory(user):
+    # We're going to return this decorator
+    def check(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            print("dekoratorshia shemosuli")
+            if user == 'admin':
+                if current_user.is_authenticated and current_user.name:
+                    print(current_user)
+                    usr = MainLogin.query.filter_by(name=current_user.name).first()
+                    if usr and usr.state == 'admin':
+                        print("adminiaaaaaaaaaaa",current_user.name,usr)
+                        return func(*args,**kwargs)
+                    else:
+                        return redirect(url_for('StudentLogin'))
+                else:
+                    return redirect(url_for('StudentLogin'))
+            if user == 'student':
+                print("Shemovida studentia")
+                if current_user.is_authenticated:
+                    print("val1")
+                    stud = Tests.query.filter_by(code=current_user.code).first()
+                    print(stud.state,current_user.code)
+                    if stud and stud.state =='student':
+                        print("val2")
+                        print("studentiaaaaaaaaaaaaaaa",current_user.code)
+                        return func(*args,**kwargs)
+                    else:
+                        return redirect(url_for("StudentLogin"))
+            else:
+                return redirect(url_for('StudentLogin'))
+
+        return wrapper
+
+    return check
+
 
 # აქ ვინახავ სურათს სტატიკ ფოლდერში
 def save_picture(form_picture):
@@ -17,7 +56,7 @@ def save_picture(form_picture):
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
-    # თუ გვინდა სურათების დაპატარავება 
+    # თუ გვინდა სურათების დაპატარავება ან გაზრდა
     # output_size = (125, 125)
     # i = Image.open(form_picture) 
     # i.thumbnail(output_size)
@@ -39,15 +78,16 @@ def StudentLogin():
         return redirect(url_for("customerLogin"))
     return render_template('card/student_login.html',form=form)
 
-@login_required
+
 @app.route('/student/home',methods=['GET','POST'])
+@decorator_factory('student')
 def StudentHome():
-    z= current_user.id
-    print("username",current_user.code,Pictures.query.filter_by(test_id = z).first().pic)
+
     return render_template('card/student_home.html')
 
-@login_required
+
 @app.route('/add_test',methods=['POST','GET'])
+@decorator_factory('admin')
 def add_test():
     form = TestForm()
     print("testing ")
@@ -90,7 +130,7 @@ def update_test():
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('/'))
+    return redirect(url_for('update_test'))
 
 
 @app.route("/admin/login", methods=['GET', 'POST'])
@@ -112,12 +152,14 @@ def login():
             flash('Login Unsuccessful. Please check name and password', 'danger')
     return render_template('card/admin_login.html', title='Login', form=form)
 
-
+@decorator_factory('admin')
 @app.route("/admin/home", methods=['GET', 'POST'])
 def AdminHome():
     data = 'admin user'+ '  ' + current_user.name
     return data
 
 @app.route("/")
+@decorator_factory('admin')
 def main():
-    return render_template('cards/main_page.html')
+    print(current_user.code)
+    return render_template('card/main_page.html')
