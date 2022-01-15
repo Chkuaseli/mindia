@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <P>მოგესალმებით თქვენს კაბინეტში</br>{{current_user.code}}</P>
+    <P>მოგესალმებით თქვენს კაბინეტში</br>{% if current_user.is_authenticated %}{{current_user.code}}{% endif %}</P>
 </body>
 </html>

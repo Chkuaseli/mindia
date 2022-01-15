@@ -1,3 +1,5 @@
+from lib2to3.pgen2.literals import test
+from pydoc import describe
 from typing import Sized
 from quiz import app,db,photos,search,photos,bcrypt
 from flask import redirect, render_template, url_for, flash, request,current_app,jsonify,session,make_response,request
@@ -14,7 +16,6 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 # დეკორატორი წვდომებისათვის ორი როლისთვის ადმინი და სტუდენტ["admin","student"]
 def decorator_factory(user):
-    # We're going to return this decorator
     def check(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -42,8 +43,10 @@ def decorator_factory(user):
                         return func(*args,**kwargs)
                     else:
                         return redirect(url_for("StudentLogin"))
+                else:
+                    return redirect(url_for('StudentLogin'))
             else:
-                return redirect(url_for('StudentLogin'))
+                print('არასრული წვდომა')
 
         return wrapper
 
@@ -90,6 +93,7 @@ def StudentHome():
 @decorator_factory('admin')
 def add_test():
     form = TestForm()
+    addtest = 50
     print("testing ")
     print(form.validate_on_submit())
     print(form.errors)
@@ -110,7 +114,7 @@ def add_test():
             db.session.commit()            
             flash(f'მონაცემები წარმატებით დაემატა','success')
         return redirect(url_for('add_test'))
-    return render_template('card/add_tests.html',form = form )
+    return render_template('card/add_tests.html',form = form,addtest=addtest)
 
 @app.route('/admin/tests',methods=['POST','GET'])
 def tests():
@@ -121,11 +125,25 @@ def tests():
 
     return render_template('card/tests.html',tests=tests)
 
-@app.route('/update_test',methods=['POST','GET'])
-def update_test():
-    form = Tests()
-    t = "make mindia websaite"
-    return t
+@app.route('/update_test/<int:id>',methods=['POST','GET'])
+def update_test(id):
+    updatetest = Tests.query.get_or_404(id)
+    img =  Pictures.query.filter_by(test_id = updatetest.id).all()
+    print("aqaaaaaaaaa",img)
+    for i in img:
+        print(i.pic)
+    print(updatetest,"aq Semovida")
+    if request.method =='POST':
+        desc =  request.form.get('desc')
+        name = request.form.get('name')
+        code = request.form.get('code')
+        updatetest.name = name
+        updatetest.code = code
+        updatetest.desc = desc
+        flash(f'the test {updatetest.code} has bin updated to your database','success')
+        db.session.commit()
+   
+    return render_template('card/add_tests.html',title = 'update test',updatetest=updatetest,img=img)
 
 @app.route("/logout")
 def logout():
@@ -159,7 +177,5 @@ def AdminHome():
     return data
 
 @app.route("/")
-@decorator_factory('admin')
 def main():
-    print(current_user.code)
     return render_template('card/main_page.html')
